@@ -1,15 +1,31 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  /* config options here */
-  reactCompiler: true,
-  turbopack: {
-    rules: {
-      "*.css": {
-        loaders: ["@tailwindcss/turbopack"],
-        as: "*.css",
-      },
+    images: {
+        remotePatterns: [
+            {
+                protocol: "https",
+                hostname: "i.ibb.co",
+                port: "",
+                pathname: "/**",
+            },
+            {
+                protocol: "https",
+                hostname: "images.unsplash.com",
+                pathname: "/**",
+            },
+        ],
     },
-  },
+
+    reactCompiler: true,
+
+    turbopack: {
+        rules: {
+            "*.css": {
+                loaders: ["@tailwindcss/turbopack"],
+                as: "*.css",
+            },
+        },
+    },
 };
 
 export default nextConfig;
