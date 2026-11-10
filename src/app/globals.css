@@ -1,7 +1,9 @@
 @import "tailwindcss";
-@plugin "daisyui";
 
-body {
-    background-color: white;
+@plugin "daisyui" {
+   themes: light --default;
 }
 
+body {
+   background-color: white;
+}
