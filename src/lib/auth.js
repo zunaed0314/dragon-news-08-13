@@ -2,11 +2,26 @@ import { betterAuth } from "better-auth";
 import { MongoClient } from "mongodb";
 import { mongodbAdapter } from "@better-auth/mongo-adapter";
 
-const client = new MongoClient("mongodb://localhost:27017/database");
-const db = client.db();
+const client = new MongoClient(process.env.AUTH_DB_URI);
+const db = client.db("demo-auth");
 
 export const auth = betterAuth({
+   socialProviders: {
+      google: {
+         clientId: process.env.GOOGLE_CLIENT_ID,
+         clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+      },
+      github: {
+         clientId: process.env.GITHUB_CLIENT_ID,
+         clientSecret: process.env.GITHUB_CLIENT_SECRET,
+      },
+   },
+   emailAndPassword: {
+      enabled: true,
+   },
    database: mongodbAdapter(db, {
       client,
    }),
 });
+
+console.log("MongoDB URI loaded:", !!process.env.AUTH_DB_URI);

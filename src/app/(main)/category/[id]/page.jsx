@@ -3,6 +3,9 @@ import LeftSideBar from "@/components/HomePage/news/LeftSideBar";
 import RightSideBar from "@/components/HomePage/socials/RightSideBar";
 import { getNews, getNewsByCategoryId } from "@/lib/data";
 import NewsCard from "@/components/NewsCard/NewsCard";
+import { auth } from "@/lib/auth";
+import { headers } from "next/headers";
+import { redirect } from "next/navigation";
 
 const NewsByCategory = async ({ params }) => {
    const { id } = await params;
@@ -13,6 +16,17 @@ const NewsByCategory = async ({ params }) => {
    const news = await getNewsByCategoryId(id);
    console.log("Eta hoilo news mama: ", news);
    console.log("Here are the news: ", data.news_category);
+
+   const session = await auth.api.getSession({
+      headers: await headers(),
+   });
+
+   // if (session) {
+   //    console.log("Ei lo home er session: ", session);
+   // } else {
+   //    console.log("no session: ");
+   //    return redirect("/login");
+   // }
 
    return (
       <div className="container mx-auto mt-5 grid grid-cols-12 gap-5">
